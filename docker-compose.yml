@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app1:
+    build: ./app-messages-1
+    ports:
+      - "3001:3000"
+    environment:
+      - APP_NAME=App1
+      - TARGET_APP_URL=http://app2:3000
+      - TARGET_APP_NAME=App2
+    depends_on:
+      - app2
+
+  app2:
+    build: ./app-messages-2
+    ports:
+      - "3002:3000"
+    environment:
+      - APP_NAME=App2
+      - TARGET_APP_URL=http://app1:3000
+      - TARGET_APP_NAME=App1
